@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.MLAgents;
+using Unity.Burst.CompilerServices;
 
 
 public class MLPlayer : MonoBehaviour
@@ -18,19 +19,22 @@ public class MLPlayer : MonoBehaviour
     private void Start()
     {
         rb = this.GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+        //rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
     }
 
     private void FixedUpdate()
     {
-        // if (Input.GetKey(KeyCode.UpArrow) == true){
-        //     Thrust();
-        // }
+        //if (Input.GetKey(KeyCode.UpArrow) == true)
+        //{
+        //    Thrust();
+        //}
     }
 
-    // private void Thrust(){
-    //     rb.AddForce(Vector3.up * Force, ForceMode.Acceleration);
-    // }
+    //private void Thrust()
+    //{
+    //    rb.AddForce(Vector3.up * Force, ForceMode.Acceleration);
+    //}
 
     void Update(){
         horizontalInput = Input.GetAxis("Horizontal");
