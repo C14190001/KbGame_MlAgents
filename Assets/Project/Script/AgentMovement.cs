@@ -9,7 +9,8 @@ public class AgentMovement : Agent
 {
     [SerializeField] private Transform targetTransform;
     Rigidbody rb = null;
-    float moveSpeed = 5f;
+    RaycastHit hit;
+    float moveSpeed = 3f;
     int checkpoints = 0;
 
     public override void OnEpisodeBegin()
@@ -43,6 +44,26 @@ public class AgentMovement : Agent
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(targetTransform.localPosition);
         sensor.AddObservation(checkpoints);
+
+        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 10f);
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+        sensor.AddObservation(hit.distance);
+        //Debug.Log("Forward: " + hit.distance);
+
+        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, 10f);
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.back) * hit.distance, Color.yellow);
+        sensor.AddObservation(hit.distance);
+        //Debug.Log("Back: " + hit.distance);
+
+        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit, 10f);
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * hit.distance, Color.yellow);
+        sensor.AddObservation(hit.distance);
+        //Debug.Log("Left: " + hit.distance);
+
+        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, 10f);
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * hit.distance, Color.yellow);
+        sensor.AddObservation(hit.distance);
+        //Debug.Log("Right: "+hit.distance);
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
@@ -66,7 +87,7 @@ public class AgentMovement : Agent
     private void OnTriggerEnter(Collider other)
     {
         if(other.TryGetComponent<Goal>(out Goal goal)){
-            SetReward(1f);
+            SetReward(10f);
             checkpoints++;
             if(checkpoints > 3)
             {
@@ -75,8 +96,12 @@ public class AgentMovement : Agent
 
             EndEpisode();
         }
-        if (other.TryGetComponent<Wall>(out Wall wall)){
+        if (other.TryGetComponent<Wall2>(out Wall2 wall2))
+        {
             SetReward(-1f);
+        }
+        if (other.TryGetComponent<Wall>(out Wall wall)){
+            SetReward(-5f);
             checkpoints = 0;
             EndEpisode();
         }
