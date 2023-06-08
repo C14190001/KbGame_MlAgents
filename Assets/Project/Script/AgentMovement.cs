@@ -19,25 +19,27 @@ public class AgentMovement : Agent
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         //rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
 
-        Vector3 pos = new Vector3(-23.38f,1.215078f,-0.16f);
+        Vector3 pos = new Vector3(-18.5f,1f,0f);
         transform.localPosition = pos;
 
-        //Lokasi PressurePlate
-        switch (checkpoints)
-        {
-            case 0:
-                targetTransform.localPosition = new Vector3(-19f, 0.0f, 0f);
-                break; 
-            case 1:
-                targetTransform.localPosition = new Vector3(-14f, 0.0f, 0f);
-                break;
-            case 2:
-                targetTransform.localPosition = new Vector3(1f, 0.0f, 0f);
-                break;
-            case 3:
-                targetTransform.localPosition = new Vector3(15f, 0.0f, 0f);
-                break;
-        }
+        ////Lokasi PressurePlate
+        targetTransform.localPosition = new Vector3(UnityEngine.Random.Range(-26.0f, -8.0f), 0.0f, UnityEngine.Random.Range(-2.0f, 2.0f));
+
+        //switch (checkpoints)
+        //{
+        //    case 0:
+        //        targetTransform.localPosition = new Vector3(-19f, 0.0f, 0f);
+        //        break;
+        //    case 1:
+        //        targetTransform.localPosition = new Vector3(-14f, 0.0f, 0f);
+        //        break;
+        //    case 2:
+        //        targetTransform.localPosition = new Vector3(1f, 0.0f, 0f);
+        //        break;
+        //    case 3:
+        //        targetTransform.localPosition = new Vector3(15f, 0.0f, 0f);
+        //        break;
+        //}
     }
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -84,10 +86,18 @@ public class AgentMovement : Agent
         continuousActions[1] = Input.GetAxisRaw("Vertical");
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent<Wall2>(out Wall2 wall2))
+        {
+            AddReward(-5f);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.TryGetComponent<Goal>(out Goal goal)){
-            SetReward(10f);
+            AddReward(10f);
             checkpoints++;
             if(checkpoints > 3)
             {
@@ -96,12 +106,9 @@ public class AgentMovement : Agent
 
             EndEpisode();
         }
-        if (other.TryGetComponent<Wall2>(out Wall2 wall2))
-        {
-            SetReward(-1f);
-        }
+        
         if (other.TryGetComponent<Wall>(out Wall wall)){
-            SetReward(-5f);
+            AddReward(-10f);
             checkpoints = 0;
             EndEpisode();
         }

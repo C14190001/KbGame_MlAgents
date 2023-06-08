@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98363744092310848}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19, y: 0, z: 0}
+  m_LocalPosition: {x: -24.9, y: 0, z: 0.16}
   m_LocalScale: {x: 1.2538494, y: 0.09844, z: 1.2177365}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -743,6 +743,7 @@ GameObject:
   - component: {fileID: 7369432153057776315}
   - component: {fileID: 5144167270497182490}
   - component: {fileID: 4658717813731763946}
+  - component: {fileID: 5302264050308207727}
   m_Layer: 0
   m_Name: Cube (7)
   m_TagString: Untagged
@@ -844,6 +845,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &5302264050308207727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2417263001536465116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb2cba0fa5875624cb7857267a44019a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3244700266487171952
 GameObject:
   m_ObjectHideFlags: 0
@@ -1689,7 +1702,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
@@ -1992,7 +2005,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7881140800283190544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.38, y: 1.215078, z: -0.16}
+  m_LocalPosition: {x: -18.5, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2126,7 +2139,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 10000
+  MaxStep: 5000
   targetTransform: {fileID: 2797369982376971455}
 --- !u!114 &3196877468127281050
 MonoBehaviour:
