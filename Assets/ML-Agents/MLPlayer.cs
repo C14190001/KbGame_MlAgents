@@ -11,6 +11,7 @@ public class MLPlayer : MonoBehaviour
     public float speed = 5.0f;
     private float horizontalInput;
     private float forwardInput;
+    bool isGrounded = true;
 
 
     public float Force = 15f;
@@ -37,10 +38,26 @@ public class MLPlayer : MonoBehaviour
     //}
 
     void Update(){
-        horizontalInput = Input.GetAxis("Horizontal");
-        forwardInput = Input.GetAxis("Vertical");
+        //horizontalInput = Input.GetAxis("Horizontal");
+        //forwardInput = Input.GetAxis("Vertical");
+        //if (Physics2D.Raycast(transform.position, Vector2.down, 0.5f))
+        //{
+        //    isGrounded = true;
+        //    Debug.Log("Ground");
+        //}
+        //else
+        //{
+        //    isGrounded = false;
+        //    Debug.Log("Not Ground");
+        //}
 
-        transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
-        transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);
+        //if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        //{
+        //    Debug.Log("Jump button");
+        //    rb.AddForce(transform.up * 50f, ForceMode.Impulse);
+        //}
+
+        //transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
+        //transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);
     }
 }
