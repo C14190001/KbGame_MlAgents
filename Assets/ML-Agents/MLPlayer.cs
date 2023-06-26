@@ -7,14 +7,17 @@ using Unity.Burst.CompilerServices;
 
 public class MLPlayer : MonoBehaviour
 {
+    //| Pake AgentMovement.cs   |
+    //| Yang ini JANGAN DIPAKAI |
+    
     //test gerak
-    public float speed = 5.0f;
-    private float horizontalInput;
-    private float forwardInput;
-    bool isGrounded = true;
+    //public float speed = 5.0f;
+    //private float horizontalInput;
+    //private float forwardInput;
+    //bool isGrounded = true;
 
 
-    public float Force = 15f;
+    //public float Force = 15f;
     private Rigidbody rb = null;
 
     private void Start()
