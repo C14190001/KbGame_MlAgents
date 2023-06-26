@@ -2235,7 +2235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 10
+    VectorObservationSize: 16
     NumStackedVectorObservations: 3
     m_ActionSpec:
       m_NumContinuousActions: 3
@@ -2270,6 +2270,8 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
   targetTransform: {fileID: 2797369982376971455}
+  enemyTransform: {fileID: 4038504844758131137}
+  bulletTransform: {fileID: 4353091387181113215}
   level1_Door: {fileID: 5820382668468075447}
 --- !u!114 &3196877468127281050
 MonoBehaviour:
@@ -2533,6 +2535,34 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 09ac5c89e57e16845b5a9c6acd558d89, type: 2}
+    - target: {fileID: 7959067984757135039, guid: b4821fcb1b9877b4fa30a0248e863f29, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7959067985227194740, guid: b4821fcb1b9877b4fa30a0248e863f29, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 7959067985227194741, guid: b4821fcb1b9877b4fa30a0248e863f29, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7959067985227194742, guid: b4821fcb1b9877b4fa30a0248e863f29, type: 3}
+      propertyPath: m_Height
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7959067985227194742, guid: b4821fcb1b9877b4fa30a0248e863f29, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7959067985227194743, guid: b4821fcb1b9877b4fa30a0248e863f29, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 5901444965954629052}
+    - target: {fileID: 7959067985549810373, guid: b4821fcb1b9877b4fa30a0248e863f29, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 8114276428367098199, guid: b4821fcb1b9877b4fa30a0248e863f29, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2577,6 +2607,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb2cba0fa5875624cb7857267a44019a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &4038504844758131137 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7959067985227194740, guid: b4821fcb1b9877b4fa30a0248e863f29, type: 3}
+  m_PrefabInstance: {fileID: 6232960905599385781}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4353091387181113215 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7644479275190984650, guid: b4821fcb1b9877b4fa30a0248e863f29, type: 3}
+  m_PrefabInstance: {fileID: 6232960905599385781}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4492413253558318095 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7505159610790032570, guid: b4821fcb1b9877b4fa30a0248e863f29, type: 3}

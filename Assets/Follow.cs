@@ -31,7 +31,7 @@ public class Follow : MonoBehaviour
         _direction = (player.position - transform.position).normalized;
         _lookRotation = Quaternion.LookRotation(_direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * RotationSpeed);
-        transform.position = new Vector3(transform.position.x, transform.position.y, player.transform.position.z);
+        agent.SetDestination(new Vector3(player.transform.position.x, transform.position.y, transform.position.z));
         shoot();
     }
 

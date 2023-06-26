@@ -10,6 +10,8 @@ using Unity.VisualScripting;
 public class AgentMovement : Agent
 {
     [SerializeField] private Transform targetTransform;
+    [SerializeField] private Transform enemyTransform;
+    [SerializeField] private Transform bulletTransform;
     [SerializeField] private GameObject level1_Door;
     Rigidbody rb = null;
     RaycastHit hit;
@@ -42,6 +44,7 @@ public class AgentMovement : Agent
         ////======================
 
         //Spawn Player
+        rb.velocity = Vector3.zero;
         if (checkpoints - 1 >= 0)
         {
             transform.localPosition = new Vector3(pressurePlateLocations[checkpoints - 1].x, 2f, pressurePlateLocations[checkpoints - 1].z);
@@ -69,6 +72,9 @@ public class AgentMovement : Agent
     {
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(targetTransform.localPosition);
+        sensor.AddObservation(enemyTransform.localPosition);
+        sensor.AddObservation(bulletTransform.localPosition);
+        sensor.AddObservation(checkpoints);
 
         Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength);
         sensor.AddObservation(hit.distance);
@@ -93,6 +99,12 @@ public class AgentMovement : Agent
 
         //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.back) * hit.distance, Color.yellow);
         //Debug.Log("Right: "+hit.distance);
+
+        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, raycastLength);
+        sensor.AddObservation(hit.distance);
+
+        //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.back) * hit.distance, Color.yellow);
+        //Debug.Log("Down: "+hit.distance);
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
@@ -114,7 +126,7 @@ public class AgentMovement : Agent
             //Debug.Log("Not Ground");
         }
 
-        if (jumpV >= 1)
+        if (jumpV >= 0.5)
         {
             jump();
         }
@@ -141,6 +153,11 @@ public class AgentMovement : Agent
             AddReward(-1f);
             //Debug.Log("Wall Hit");
         }
+        if (collision.gameObject.TryGetComponent<Bullet>(out Bullet bullet))
+        {
+            AddReward(-3f);
+            EndEpisode();
+        }
     }
 
     private void jump()
@@ -159,6 +176,10 @@ public class AgentMovement : Agent
             if (checkpoints < 7) {
                 checkpoints++;
             }
+            else
+            {
+                checkpoints = 0;
+            }
             EndEpisode();
         }
 
@@ -167,6 +188,12 @@ public class AgentMovement : Agent
             AddReward(-5f);
             EndEpisode();
         }
+
+        //if(other.TryGetComponent<Bullet>(out Bullet bullet))
+        //{
+        //    AddReward(-5f);
+        //    EndEpisode();
+        //}
 
     }
 }
