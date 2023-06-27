@@ -8,7 +8,7 @@ public class Follow : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
 
-    [SerializeField] private float timer = 5;
+    [SerializeField] private float timer = 10;
     private float bulletTime;
 
     public GameObject enemyBullet;
@@ -43,5 +43,6 @@ public class Follow : MonoBehaviour
         GameObject bulletObj = Instantiate(enemyBullet, spawnPoint.transform.position, spawnPoint.transform.rotation) as GameObject;
         Rigidbody bulletRig = bulletObj.GetComponent<Rigidbody>();
         bulletRig.AddForce(bulletRig.transform.forward * bulletSpeed);
+        Destroy(bulletObj, 10f);
     }
 }

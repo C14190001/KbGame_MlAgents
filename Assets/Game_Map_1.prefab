@@ -408,14 +408,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939365525958753983}
-  m_LocalRotation: {x: 0.14454225, y: -0, z: -0, w: 0.9894987}
-  m_LocalPosition: {x: 0.03, y: 2.76, z: -5.56}
+  m_LocalRotation: {x: 0.23468788, y: -0, z: -0, w: 0.9720708}
+  m_LocalPosition: {x: 0.02999878, y: 7.2, z: -9.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1475626749507652679}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 16.622, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 27.146, y: 0, z: 0}
 --- !u!20 &1982374836940960626
 Camera:
   m_ObjectHideFlags: 0
@@ -496,7 +496,7 @@ Transform:
   m_GameObject: {fileID: 1538675723347745356}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 18, y: 2, z: 0}
-  m_LocalScale: {x: -10.060971, y: 11.354721, z: 1.7166}
+  m_LocalScale: {x: -23.26801, y: 44.333622, z: 1.7166}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9212410850025267813}
@@ -1135,7 +1135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 18
+    VectorObservationSize: 21
     NumStackedVectorObservations: 3
     m_ActionSpec:
       m_NumContinuousActions: 3
@@ -1144,7 +1144,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: a511ae656c42dbe408e4964a3f1f33d8, type: 3}
   m_InferenceDevice: 1
   m_BehaviorType: 0
   m_BehaviorName: MoveToGoal
@@ -1168,7 +1168,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 5000
+  MaxStep: 2000
   targetTransform: {fileID: 7155691447468059972}
   enemyTransform: {fileID: 5015987818799306748}
   bulletTransform: {fileID: 5015987818201484111}
@@ -6177,7 +6177,7 @@ Transform:
   m_GameObject: {fileID: 5667074324570056845}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 18.25591, y: 14.59, z: -12.009473}
-  m_LocalScale: {x: 51.80627, y: 16.119, z: 1}
+  m_LocalScale: {x: 51.80627, y: 14.059475, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7730154923748954505}

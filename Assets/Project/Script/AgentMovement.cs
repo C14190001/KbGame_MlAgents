@@ -16,6 +16,10 @@ public class AgentMovement : Agent
     Rigidbody rb = null;
     RaycastHit hit;
     bool isGrounded = true;
+    int fails = 0; //Jika masuk jurang lebih dari 3 kali, balik lagi ke Checkpoint 0.
+    bool isHitByProjectile = false;
+    bool isTimerRunning = true;
+    float timerRemaining = 0f;
 
     //Config ====
     Vector3[] pressurePlateLocations = new Vector3[8];
@@ -23,8 +27,8 @@ public class AgentMovement : Agent
     float moveSpeed = 3f;
     float jumpForce = 10f;
     float raycastLength = 5f;
+    float timer = 120f;
     //============
-
     public override void OnEpisodeBegin()
     {
         rb = this.GetComponent<Rigidbody>();
@@ -42,6 +46,13 @@ public class AgentMovement : Agent
         pressurePlateLocations[6] = new Vector3(85.5f, 1f, 0.6f);
         pressurePlateLocations[7] = new Vector3(95.5f, 1f, 0.3f);
         ////======================
+
+        //Set Timer
+        isTimerRunning = true;
+        timerRemaining = timer;
+
+        //Set isHitByProjectile
+        isHitByProjectile = false;
 
         //Spawn Player
         rb.velocity = Vector3.zero;
@@ -68,13 +79,36 @@ public class AgentMovement : Agent
         //Spawn Pressure Plate
         targetTransform.localPosition = pressurePlateLocations[checkpoints];
     }
+    void Update()
+    {
+        if (isTimerRunning)
+        {
+            if (timerRemaining > 0)
+            {
+                timerRemaining -= Time.deltaTime;
+            }
+            else
+            {
+                isTimerRunning = false;
+                AddReward(-5f);
+                EndEpisode();
+            }
+        }
+    }
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(targetTransform.localPosition);
         sensor.AddObservation(enemyTransform.localPosition);
-        sensor.AddObservation(bulletTransform.localPosition);
         sensor.AddObservation(checkpoints);
+        sensor.AddObservation(isGrounded);
+        sensor.AddObservation(timerRemaining);
+        sensor.AddObservation(isHitByProjectile);
+        sensor.AddObservation(fails);
+        sensor.AddObservation(Vector3.Distance(transform.localPosition, targetTransform.localPosition));
+        sensor.AddObservation(Vector3.Distance(transform.localPosition, enemyTransform.localPosition));
+
+        //Debug.Log(Vector3.Distance(transform.localPosition, enemyTransform.localPosition));
 
         Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, raycastLength);
         sensor.AddObservation(hit.distance);
@@ -131,7 +165,6 @@ public class AgentMovement : Agent
             jump();
         }
     }
-
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
@@ -145,7 +178,6 @@ public class AgentMovement : Agent
             jump();
         }
     }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.TryGetComponent<Wall2>(out Wall2 wall2))
@@ -155,11 +187,10 @@ public class AgentMovement : Agent
         }
         if (collision.gameObject.TryGetComponent<Bullet>(out Bullet bullet))
         {
-            AddReward(-3f);
-            EndEpisode();
+            //AddReward(-3f);
+            isHitByProjectile = true;
         }
     }
-
     private void jump()
     {
         if (isGrounded)
@@ -167,7 +198,6 @@ public class AgentMovement : Agent
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<Goal>(out Goal goal))
@@ -185,7 +215,23 @@ public class AgentMovement : Agent
 
         if (other.TryGetComponent<Wall>(out Wall wall))
         {
-            AddReward(-5f);
+            //AddReward(-5f);
+
+            if (isHitByProjectile)
+            {
+                AddReward(-8f);
+            }
+            else
+            {
+                AddReward(-5f);
+            }
+
+            fails++;
+            if(fails > 2)
+            {
+                fails = 0;
+                checkpoints = 0;
+            }
             EndEpisode();
         }
 
